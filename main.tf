@@ -136,37 +136,3 @@ resource "oci_core_instance" "ic_pub_vm-A" {
   }
 }
 
-resource "oci_core_instance" "ic_pub_vm-B" {
-  compartment_id      = var.compartment_id
-  shape               = var.ic_pub_vm_B.shape.name
-  availability_domain = var.ic_pub_vm_B.availability_domain
-  display_name        = var.ic_pub_vm_B.display_name
-
-  source_details {
-    source_id   = var.ic_pub_vm_B.image_ocid
-    source_type = "image"
-	boot_volume_size_in_gbs = var.ic_pub_vm_B.boot_volume.size_in_gbs
-	boot_volume_vpus_per_gb = var.ic_pub_vm_B.boot_volume.vpus_per_gb
-  }
-
-  dynamic "shape_config" {
-    for_each = [true]
-    content {
-      #Optional
-      memory_in_gbs = var.ic_pub_vm_B.shape.memory_in_gbs
-      ocpus         = var.ic_pub_vm_B.shape.ocpus
-    }
-  }
-
-  create_vnic_details {
-    subnet_id                 = oci_core_subnet.subnetA_pub.id
-    assign_private_dns_record = true
-    assign_public_ip          = var.ic_pub_vm_B.create_vnic_details.assign_public_ip
-    hostname_label            = var.ic_pub_vm_B.create_vnic_details.hostname_label
-  }
-
-  metadata = {
-    ssh_authorized_keys = "${file(var.ssh_public_key_path)}" 
-	user_data = "${base64encode(file("./cloud-config.yaml"))}"
-  }
-}

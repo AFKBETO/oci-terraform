@@ -5,16 +5,6 @@ packages:
   - net-tools
   - ca-certificates
   - curl
-  - gnupg
   - cmake
   - unzip
-runcmd:
-  - mkdir -p /run
-  - cd /run
-  - [ "sh" , "-c" , "git clone https://github.com/neovim/neovim"]
-  - cd neovim
-  - [ "sh" , "-c" , "git checkout stable"]
-  - [ "sh" , "-c" , "make CMAKE_BUILD_TYPE=RelWithDebInfo"]
-  - cd build
-  - [ "sh" , "-c" , "cpack -G DEB"]
-  - [ "sh" , "-c" , "dpkg -i nvim*.deb"]
+  - vim

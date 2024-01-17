@@ -64,7 +64,7 @@ variable "k3s_vcn_security_list" {
       {
         description : "K3s supervisor and Kubernetes API Server"
         protocol : "6"
-        source : "10.0.0.0/24",
+        source : "0.0.0.0/0",
         destination_port_range : {
           min : 6443
           max : 6443

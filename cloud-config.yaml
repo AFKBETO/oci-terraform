@@ -8,3 +8,12 @@ packages:
   - cmake
   - unzip
   - vim
+  - uidmap
+runcmd:
+  - 'iptables -I INPUT 6 -m state --state NEW -p tcp --dport 6443:6444 -j ACCEPT'
+  - 'curl https://releases.rancher.com/install-docker/24.0.7.sh | sh' 
+  - [ su, ubuntu, -c, "dockerd-rootless-setuptool.sh install" ]
+  - [ su, ubuntu, -c, "docker run hello-world" ]
+  - [ su, ubuntu, -c, "docker system prune -af" ]
+  - 'curl -sfL https://get.k3s.io | sh -s - --docker --tls-san 158.178.207.140'
+  - 'reboot'

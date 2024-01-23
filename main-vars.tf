@@ -106,37 +106,14 @@ variable "ic_pub_vm_A" {
     image_ocid : "ocid1.image.oc1.eu-paris-1.aaaaaaaaypabo6tq62r7qhvt6q2ze2q7x76ezjfag3mkeritdvldos476d5q"
     shape : {
       name          = "VM.Standard.A1.Flex"
-      ocpus         = 2
-      memory_in_gbs = 12
+      ocpus         = 4
+      memory_in_gbs = 24
     }
 	
 	boot_volume : {
-		size_in_gbs = 50
+		size_in_gbs = 100
 		vpus_per_gb = 20
 	}
-  }
-}
-
-variable "ic_pub_vm_B" {
-  description = "K3S-Worker"
-  default = {
-    display_name : "K3S-Worker"
-    create_vnic_details : {
-      assign_public_ip : true
-      hostname_label : "k3s-worker"
-    }
-    availability_domain : "LxsD:EU-PARIS-1-AD-1"
-    image_ocid : "ocid1.image.oc1.eu-paris-1.aaaaaaaaypabo6tq62r7qhvt6q2ze2q7x76ezjfag3mkeritdvldos476d5q"
-    shape : {
-      name          = "VM.Standard.A1.Flex"
-      ocpus         = 2
-      memory_in_gbs = 12
-    }
-	boot_volume : {
-		size_in_gbs = 50
-		vpus_per_gb = 20
-	}
-
   }
 }
 
